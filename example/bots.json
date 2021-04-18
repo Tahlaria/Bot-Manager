@@ -1,0 +1,9 @@
+{
+  "TexasDiceEm": {
+    "1.0": {
+      "command": "<your command>",
+      "work-directory": "<your wd>",
+      "max-parallel-run": 1
+    }
+  }
+}
