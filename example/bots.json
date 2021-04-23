@@ -1,9 +1,6 @@
 {
-  "TexasDiceEm": {
-    "1.0": {
-      "command": "<your command>",
-      "work-directory": "<your wd>",
-      "max-parallel-run": 1
-    }
+  "TexasDiceEm v1.0": {
+    "command": "java -jar cli-tde.jar",
+    "work-directory": "/private/AIArena/Community-Bot-Manager/bots"
   }
 }
