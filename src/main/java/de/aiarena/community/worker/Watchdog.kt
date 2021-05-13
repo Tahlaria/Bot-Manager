@@ -24,15 +24,15 @@ class Watchdog(
     }
 
     private fun loadAvailableGames(){
-        val response = Unirest.get("http://hub.localhost/openslots")
-            .header("pat",pat)
+        val response = Unirest.get("http://localhost:8080/hub/myslots")
+            .header("PAT",pat)
             .asJson()
 
         println("RESPONSE: "+response.body)
         for(i in 0 until response.body.array.length()){
             val item = response.body.array.getJSONObject(i)
-            if(!item.isNull("Token")){
-                val token = item.getString("Token")
+            if(!item.isNull("token")){
+                val token = item.getString("token")
                 if(!processedKeys.contains(token)){
                     processToken(item)
                 }
@@ -43,22 +43,22 @@ class Watchdog(
         keysToDelete.addAll(processedKeys)
         for(i in 0 until response.body.array.length()){
             val item = response.body.array.getJSONObject(i)
-            if(!item.isNull("Token")){
-                keysToDelete.remove(item.getString("Token"))
+            if(!item.isNull("token")){
+                keysToDelete.remove(item.getString("token"))
             }
         }
         processedKeys.removeAll(keysToDelete)
     }
 
     private fun processToken(data: JSONObject){
-        val token = data.getString("Token")
-        val game = data.getString("Game")
+        val token = data.getString("token")
+        val game = data.getString("game")
         processedKeys.add(token)
         val runConfiguration = configuration.getConfiguration(game)
             ?: return
 
         val builder = ProcessBuilder(
-            (runConfiguration.command + " "+token).split(" ")
+            (runConfiguration.command.replace("\$t",token)).split(" ")
         )
             .inheritIO()
             .directory(File(runConfiguration.workDir))

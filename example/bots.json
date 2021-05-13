@@ -1,6 +1,6 @@
 {
   "TexasDiceEm v1.0": {
-    "command": "java -jar cli-tde.jar",
+    "command": "java -jar cli-tde.jar $t",
     "work-directory": "/private/AIArena/Community-Bot-Manager/bots"
   }
 }
